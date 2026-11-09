@@ -1,41 +1,52 @@
 #include <stdio.h>
 
 int main() {
-    int n, i, j;
+    int n, tq;
 
     printf("Enter number of processes: ");
     scanf("%d", &n);
 
-    int bt[n], wt[n], tat[n];
+    int bt[n], rem_bt[n];
+    int wt[n], tat[n];
 
-    for(i = 0; i < n; i++) {
+    for(int i = 0; i < n; i++) {
         printf("Burst Time P%d: ", i + 1);
         scanf("%d", &bt[i]);
+        rem_bt[i] = bt[i];
     }
 
-    for(i = 0; i < n - 1; i++) {
-        for(j = i + 1; j < n; j++) {
-            if(bt[i] > bt[j]) {
-                int temp = bt[i];
-                bt[i] = bt[j];
-                bt[j] = temp;
+    printf("Enter Time Quantum: ");
+    scanf("%d", &tq);
+
+    int time = 0;
+
+    while(1) {
+        int done = 1;
+
+        for(int i = 0; i < n; i++) {
+            if(rem_bt[i] > 0) {
+                done = 0;
+
+                if(rem_bt[i] > tq) {
+                    time += tq;
+                    rem_bt[i] -= tq;
+                } else {
+                    time += rem_bt[i];
+                    wt[i] = time - bt[i];
+                    rem_bt[i] = 0;
+                }
             }
         }
-    }
 
-    wt[0] = 0;
-
-    for(i = 1; i < n; i++) {
-        wt[i] = wt[i - 1] + bt[i - 1];
-    }
-
-    for(i = 0; i < n; i++) {
-        tat[i] = wt[i] + bt[i];
+        if(done)
+            break;
     }
 
     printf("\nProcess\tBT\tWT\tTAT\n");
 
-    for(i = 0; i < n; i++) {
+    for(int i = 0; i < n; i++) {
+        tat[i] = bt[i] + wt[i];
+
         printf("P%d\t%d\t%d\t%d\n",
                i + 1,
                bt[i],
