@@ -2,10 +2,13 @@
 
 Operating Systems Project
 
-Algorithms:
-- FCFS (First Come First Serve)
-- SJF (Shortest Job First)
-- SRTF (Shortest Remaining Time First)
-- Round Robin
+Implemented Algorithms:
+
+1. FCFS (First Come First Serve)
+2. SJF (Shortest Job First)
+3. SRTF (Shortest Remaining Time First)
+4. Round Robin
 
 Language: C
+
+Author: [mohamad mahdi sadeghi nasab]
